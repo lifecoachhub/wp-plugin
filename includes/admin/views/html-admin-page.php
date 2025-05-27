@@ -18,15 +18,14 @@ $is_connected = $api_key && 'success' === $connection_status;
 
 // Build app URL with API key and source parameter if available
 $app_url = 'http://localhost:8000'; // 'https://app.lifecoachhub.com/';
-// http://localhost:8000/login?external_connection=1&redirect_url=http%3A%2F%2Flifecoachhub.local%2Fwp-admin%2Fadmin.php%3Fpage%3Dlifecoachhub
+$base_app_url = $app_url;
 
 if ( $api_key ) {
 	$app_url = $app_url . '/launchpad';
-	// $app_url = $app_url . '/coach/clients/stream';
-
 	$app_url = add_query_arg( array(
 		'api_key' => $api_key,
-		'source'  => 'external_connection'
+		'source'  => 'external_connection',
+		'embedded' => '1'  // Let the app know it's embedded
 	), $app_url );
 } else {
 	$app_url = $app_url . '/login';
@@ -42,14 +41,133 @@ if ( $api_key ) {
 // If connected successfully, show only iframe
 if ( $is_connected ) : ?>
 	<div class="lifecoachhub-clean-iframe-container">
+		<div id="iframe-loading" style="text-align: center; padding: 50px;">
+			<p><?php esc_html_e( 'Loading LifeCoach Hub...', 'lifecoachhub-app' ); ?></p>
+		</div>
+		
 		<iframe 
 			src="<?php echo esc_url( $app_url ); ?>" 
 			id="lifecoachhub-clean-iframe"
 			title="<?php esc_attr_e( 'LifeCoach Hub Application', 'lifecoachhub-app' ); ?>"
 			class="lifecoachhub-clean-iframe"
 			sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation"
+			style="display: none;"
 		></iframe>
+		
+		<div id="iframe-fallback" style="display: none; text-align: center; padding: 50px;">
+			<h3><?php esc_html_e( 'Unable to load embedded view', 'lifecoachhub-app' ); ?></h3>
+			<p><?php esc_html_e( 'The application cannot be embedded due to security restrictions.', 'lifecoachhub-app' ); ?></p>
+			<a href="<?php echo esc_url( $app_url ); ?>" class="button button-primary" target="_blank">
+				<?php esc_html_e( 'Open in New Tab', 'lifecoachhub-app' ); ?>
+			</a>
+		</div>
 	</div>
+	
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const iframe = document.getElementById('lifecoachhub-clean-iframe');
+		const loading = document.getElementById('iframe-loading');
+		const fallback = document.getElementById('iframe-fallback');
+		const baseUrl = '<?php echo esc_js( $base_app_url ); ?>';
+		const apiKey = '<?php echo esc_js( $api_key ); ?>';
+		const adminPageUrl = '<?php echo esc_js( admin_url( 'admin.php?page=lifecoachhub' ) ); ?>';
+		let loadTimeout;
+		
+		// Function to update iframe URL with API key parameters
+		function updateIframeUrl(path) {
+			const url = new URL(path, baseUrl);
+			url.searchParams.set('api_key', apiKey);
+			url.searchParams.set('source', 'external_connection');
+			url.searchParams.set('embedded', '1');
+			iframe.src = url.toString();
+			
+			// Update browser URL bar to reflect iframe navigation
+			updateBrowserUrl(path);
+		}
+		
+		// Function to update browser URL bar
+		function updateBrowserUrl(path) {
+			// Extract just the path without domain
+			const pathOnly = path.startsWith('/') ? path : '/' + path;
+			const newUrl = adminPageUrl + '&iframe_path=' + encodeURIComponent(pathOnly);
+			
+			// Update URL without page reload
+			if (window.history && window.history.pushState) {
+				window.history.pushState({iframePath: pathOnly}, '', newUrl);
+			}
+		}
+		
+		// Handle browser back/forward buttons
+		window.addEventListener('popstate', function(event) {
+			if (event.state && event.state.iframePath) {
+				updateIframeUrl(event.state.iframePath);
+			}
+		});
+		
+		// Check if we have an iframe path in URL on page load
+		const urlParams = new URLSearchParams(window.location.search);
+		const initialPath = urlParams.get('iframe_path');
+		if (initialPath) {
+			setTimeout(function() {
+				updateIframeUrl(initialPath);
+			}, 1000);
+		}
+		
+		// Set a timeout to show fallback if iframe doesn't load
+		loadTimeout = setTimeout(function() {
+			loading.style.display = 'none';
+			fallback.style.display = 'block';
+		}, 10000); // 10 second timeout
+		
+		iframe.addEventListener('load', function() {
+			clearTimeout(loadTimeout);
+			loading.style.display = 'none';
+			iframe.style.display = 'block';
+			console.log('LifeCoach Hub iframe loaded successfully');
+		});
+		
+		iframe.addEventListener('error', function() {
+			clearTimeout(loadTimeout);
+			loading.style.display = 'none';
+			fallback.style.display = 'block';
+			console.error('LifeCoach Hub iframe failed to load');
+		});
+		
+		// Listen for navigation messages from iframe
+		window.addEventListener('message', function(event) {
+			if (event.origin === baseUrl) {
+				console.log('Message from LifeCoach Hub:', event.data);
+				
+				// Handle navigation requests from iframe
+				if (event.data && event.data.type === 'navigate') {
+					updateIframeUrl(event.data.path);
+				}
+				
+				// Handle URL changes from iframe
+				if (event.data && event.data.type === 'url_changed') {
+					updateBrowserUrl(event.data.path);
+				}
+				
+				// Handle other iframe communications
+				if (event.data && event.data.type === 'ready') {
+					console.log('LifeCoach Hub app is ready');
+				}
+			}
+		});
+		
+		// Send initial configuration to iframe when it loads
+		iframe.addEventListener('load', function() {
+			setTimeout(function() {
+				iframe.contentWindow.postMessage({
+					type: 'config',
+					apiKey: apiKey,
+					embedded: true,
+					source: 'external_connection'
+				}, baseUrl);
+			}, 1000);
+		});
+	});
+	</script>
 <?php else : ?>
 	<!-- Show simple connect interface if not connected -->
 	<div class="wrap lifecoachhub-admin-wrap">

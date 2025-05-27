@@ -167,5 +167,25 @@
             $('#lifecoachhub-iframe').hide();
             $('#iframe-error').show();
         }
+        
+        // Handle URL synchronization for non-clean iframe scenarios
+        if (window.location.search.includes('iframe_path=')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const iframePath = urlParams.get('iframe_path');
+            if (iframePath) {
+                // Switch to app tab and load specific path
+                $('.lifecoachhub-tab[data-tab="app"]').trigger('click');
+                setTimeout(function() {
+                    const iframe = $('#lifecoachhub-iframe');
+                    const baseUrl = iframe.data('src').split('?')[0];
+                    const newSrc = baseUrl + iframePath + '?' + new URLSearchParams({
+                        api_key: lifecoachhubData.apiKey,
+                        source: 'external_connection',
+                        embedded: '1'
+                    }).toString();
+                    iframe.attr('src', newSrc);
+                }, 1000);
+            }
+        }
     });
 })(jQuery);
