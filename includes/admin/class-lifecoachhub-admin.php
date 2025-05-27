@@ -20,7 +20,7 @@ class LifeCoachHub_Admin {
 	 *
 	 * @var string
 	 */
-	private $app_url = 'http://localhost:8000/login'; // 'https://app.lifecoachhub.com/';
+	private $app_url = 'http://localhost:8000/launchpad'; // 'https://app.lifecoachhub.com/';
 
 	/**
 	 * Constructor

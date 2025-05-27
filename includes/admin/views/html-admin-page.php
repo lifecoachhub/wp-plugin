@@ -17,7 +17,7 @@ $connected_at = get_option( 'lifecoachhub_connected_at' );
 $is_connected = $api_key && 'success' === $connection_status;
 
 // Build app URL with API key and source parameter if available
-$app_url = 'http://localhost:8000/login'; // 'https://app.lifecoachhub.com/';
+$app_url = 'http://localhost:8000/launchpad'; // 'https://app.lifecoachhub.com/';
 if ( $api_key ) {
 	$app_url = add_query_arg( array(
 		'api_key' => $api_key,
