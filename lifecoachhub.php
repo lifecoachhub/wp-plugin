@@ -68,6 +68,42 @@ class LifeCoachHub {
 	private function init_hooks() {
 		// Register blocks
 		add_action( 'init', array( $this, 'register_blocks' ) );
+		
+		// Register external connector script
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_external_connector' ) );
+		
+		// Add security headers
+		add_action( 'admin_init', array( $this, 'add_security_headers' ) );
+	}
+	
+	/**
+	 * Register external connector script
+	 */
+	public function register_external_connector( $hook ) {
+		if ( 'toplevel_page_lifecoachhub' !== $hook ) {
+			return;
+		}
+		
+		wp_enqueue_script(
+			'lifecoachhub-external-connector',
+			LIFECOACHHUB_PLUGIN_URL . 'assets/js/external-connector.js',
+			array(),
+			'1.0.0',
+			true
+		);
+	}
+	
+	/**
+	 * Add security headers
+	 */
+	public function add_security_headers() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'toplevel_page_lifecoachhub' !== $screen->id ) {
+			return;
+		}
+		
+		// Allow iframe embedding from the external app domain
+		header('Content-Security-Policy: frame-ancestors \'self\' http://localhost:8000 https://app.lifecoachhub.com');
 	}
 
 	/**

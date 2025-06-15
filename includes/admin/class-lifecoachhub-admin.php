@@ -20,7 +20,7 @@ class LifeCoachHub_Admin {
 	 *
 	 * @var string
 	 */
-	private $app_url = 'http://localhost:8000/launchpad'; // 'https://app.lifecoachhub.com/';
+	private $app_url = 'http://localhost:8000'; // 'https://app.lifecoachhub.com/';
 
 	/**
 	 * Constructor
@@ -147,13 +147,14 @@ class LifeCoachHub_Admin {
 		
 		// Get stored API key
 		$api_key = get_option( 'lifecoachhub_api_key' );
-		$app_url = $this->app_url;
+		$app_url = $this->app_url . '/launchpad';
 		
 		// Add API key and source parameter to app URL if available
 		if ( $api_key ) {
 			$app_url = add_query_arg( array(
 				'api_key' => $api_key,
-				'source'  => 'external_connection'
+				'source'  => 'external_connection',
+				'embedded' => '1'
 			), $app_url );
 		}
 		
@@ -165,6 +166,7 @@ class LifeCoachHub_Admin {
 				'nonce'   => wp_create_nonce( 'lifecoachhub_proxy_nonce' ),
 				'appUrl'  => $app_url,
 				'apiKey'  => $api_key,
+				'baseAppUrl' => $this->app_url,
 			)
 		);
 	}
@@ -195,6 +197,7 @@ class LifeCoachHub_Admin {
 			'user-agent'  => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . home_url(),
 			'headers'     => array(
 				'Referer' => home_url(),
+				'Origin' => home_url(),
 			),
 		);
 		
