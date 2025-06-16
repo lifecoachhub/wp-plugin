@@ -189,7 +189,6 @@ if ($is_connected): ?>
 				clearTimeout(loadTimeout);
 				loading.style.display = 'none';
 				iframe.style.display = 'block';
-				console.log('LifeCoach Hub iframe loaded successfully');
 
 				// Inject our external connector script
 				injectExternalConnector();
