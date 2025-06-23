@@ -44,24 +44,6 @@ if ( ! $is_connected ) {
                 <tbody>
                     <tr valign="top">
                         <th scope="row">
-                            <label for="lifecoachhub_api_key"><?php esc_html_e( 'API Key', 'lifecoachhub-app' ); ?></label>
-                        </th>
-                        <td>
-                            <input type="text" 
-                                id="lifecoachhub_api_key" 
-                                name="lifecoachhub_api_key" 
-                                value="<?php echo esc_attr( $api_key ); ?>" 
-                                class="regular-text" 
-                                placeholder="<?php esc_attr_e( 'Enter your Life Coach Hub API key', 'lifecoachhub-app' ); ?>"
-                            />
-                            <p class="description">
-                                <?php esc_html_e( 'Enter the API key provided by Life Coach Hub to connect your WordPress site.', 'lifecoachhub-app' ); ?>
-                            </p>
-                        </td>
-                    </tr>
-                    
-                    <tr valign="top">
-                        <th scope="row">
                             <?php esc_html_e( 'Connection Status', 'lifecoachhub-app' ); ?>
                         </th>
                         <td>
@@ -125,15 +107,6 @@ if ( ! $is_connected ) {
                     </tr>
                 </tbody>
             </table>
-            
-            <p class="submit">
-                <input type="submit" 
-                    name="lifecoachhub_settings_submit" 
-                    id="lifecoachhub_settings_submit" 
-                    class="button button-primary" 
-                    value="<?php esc_attr_e( 'Save Settings', 'lifecoachhub-app' ); ?>"
-                />
-            </p>
         </form>
     </div>
 </div>
