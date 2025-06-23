@@ -293,3 +293,59 @@
         font-size: 16px;
     }
 }
+
+/* Clean iframe container */
+.lifecoachhub-clean-iframe-container {
+    margin: 0;
+    padding: 0;
+    height: calc(100vh - 32px);
+}
+
+.lifecoachhub-clean-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+/* Connection box styles */
+.lifecoachhub-connect-container {
+    margin-top: 30px;
+}
+
+.lifecoachhub-connect-box {
+    max-width: 600px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Settings page styles */
+.lifecoachhub-settings-container {
+    max-width: 800px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.lifecoachhub-status-connected {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.lifecoachhub-status-disconnected {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+/* Fix for menu icon color */
+#adminmenu .toplevel_page_lifecoachhub .wp-menu-image img {
+    width: 20px;
+    height: 20px;
+    padding: 7px 0 0;
+}

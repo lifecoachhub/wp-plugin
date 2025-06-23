@@ -46,14 +46,28 @@ class LifeCoachHub_Admin {
 	 * Add admin menu
 	 */
 	public function add_admin_menu() {
+		// Create custom menu icon using SVG data URI
+		$menu_icon = 'data:image/svg+xml;base64,' . base64_encode('<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_6005_74418)"><path d="M43.0953 12.25H41.6266V25.4688C41.6243 27.4157 40.8498 29.2823 39.4731 30.659C38.0964 32.0357 36.2298 32.8102 34.2828 32.8125H22.925L18.0781 37.2188H29.6181L40.434 45.8712C40.542 45.9575 40.6723 46.0115 40.8097 46.027C40.9472 46.0426 41.0862 46.019 41.2108 45.959C41.3354 45.899 41.4406 45.805 41.5141 45.6878C41.5877 45.5707 41.6267 45.4352 41.6266 45.2969V37.2188H43.0953C44.264 37.2188 45.3847 36.7545 46.211 35.9282C47.0374 35.1019 47.5016 33.9811 47.5016 32.8125V16.6562C47.5016 15.4876 47.0374 14.3669 46.211 13.5406C45.3847 12.7142 44.264 12.25 43.0953 12.25Z" fill="#65C467"/><path d="M34.2812 1.96875H4.90625C3.73764 1.96875 2.61689 2.43298 1.79056 3.25931C0.964229 4.08564 0.5 5.20639 0.5 6.375L0.5 25.4688C0.5 26.6374 0.964229 27.7581 1.79056 28.5844C2.61689 29.4108 3.73764 29.875 4.90625 29.875H7.84375V40.8906C7.84383 41.0328 7.88518 41.1719 7.96278 41.291C8.04038 41.4102 8.1509 41.5042 8.28091 41.5618C8.41093 41.6193 8.55485 41.6379 8.69521 41.6152C8.83557 41.5925 8.96633 41.5296 9.07162 41.4341L21.7881 29.875H34.2812C35.4499 29.875 36.5706 29.4108 37.3969 28.5844C38.2233 27.7581 38.6875 26.6374 38.6875 25.4688V6.375C38.6875 5.20639 38.2233 4.08564 37.3969 3.25931C36.5706 2.43298 35.4499 1.96875 34.2812 1.96875Z" fill="#0C8CE9"/></g><defs><clipPath id="clip0_6005_74418"><rect width="47" height="47" fill="white" transform="translate(0.5 0.5)"/></clipPath></defs></svg>');
+
+		// Main app page
 		add_menu_page(
-			__( 'LifeCoach Hub', 'lifecoachhub-app' ),
-			__( 'LifeCoach Hub', 'lifecoachhub-app' ),
+			__( 'Life Coach Hub', 'lifecoachhub-app' ),
+			__( 'Life Coach Hub', 'lifecoachhub-app' ),
 			'manage_options',
 			'lifecoachhub',
 			array( $this, 'render_admin_page' ),
-			'dashicons-groups',
+			$menu_icon,
 			30
+		);
+		
+		// Settings page
+		add_submenu_page(
+			'lifecoachhub',
+			__( 'Settings', 'lifecoachhub-app' ),
+			__( 'Settings', 'lifecoachhub-app' ),
+			'manage_options',
+			'lifecoachhub-settings',
+			array( $this, 'render_settings_page' )
 		);
 	}
 
@@ -126,7 +140,8 @@ class LifeCoachHub_Admin {
 	 * Enqueue admin scripts and styles
 	 */
 	public function admin_scripts( $hook ) {
-		if ( 'toplevel_page_lifecoachhub' !== $hook ) {
+		// Load on both main plugin page and settings page
+		if ( 'toplevel_page_lifecoachhub' !== $hook && 'lifecoachhub_page_lifecoachhub-settings' !== $hook ) {
 			return;
 		}
 
@@ -250,5 +265,56 @@ class LifeCoachHub_Admin {
 		}
 		
 		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-admin-page.php';
+	}
+	
+	/**
+	 * Render settings page
+	 */
+	public function render_settings_page() {
+		// Security check
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		// Handle form submission
+		$this->handle_settings_form();
+		
+		// Load settings page template
+		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-settings-page.php';
+	}
+	
+	/**
+	 * Handle settings form submission
+	 */
+	private function handle_settings_form() {
+		// Check if form was submitted
+		if ( ! isset( $_POST['lifecoachhub_settings_submit'] ) ) {
+			return;
+		}
+		
+		// Verify nonce
+		if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) || 
+			 ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lifecoachhub_settings_nonce'] ) ), 'lifecoachhub_save_settings' ) ) {
+			add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub-app' ), 'error' );
+			return;
+		}
+		
+		// Get API key from form
+		$api_key = isset( $_POST['lifecoachhub_api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['lifecoachhub_api_key'] ) ) : '';
+		
+		// Save settings
+		update_option( 'lifecoachhub_api_key', $api_key );
+		
+		// If API key was provided, update connection status
+		if ( ! empty( $api_key ) ) {
+			update_option( 'lifecoachhub_connection_status', 'manual' );
+			update_option( 'lifecoachhub_connected_at', current_time( 'mysql' ) );
+		} else {
+			// If API key was removed, reset connection status
+			delete_option( 'lifecoachhub_connection_status' );
+			delete_option( 'lifecoachhub_connected_at' );
+		}
+		
+		add_settings_error( 'lifecoachhub_settings', 'settings_updated', __( 'Settings saved successfully.', 'lifecoachhub-app' ), 'success' );
 	}
 }
