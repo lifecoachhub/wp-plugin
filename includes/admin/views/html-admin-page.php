@@ -42,11 +42,11 @@ if ($api_key) {
 if ($is_connected): ?>
 	<div class="lifecoachhub-clean-iframe-container">
 		<div id="iframe-loading" style="text-align: center; padding: 50px;">
-			<p><?php esc_html_e('Loading LifeCoach Hub...', 'lifecoachhub-app'); ?></p>
+			<p><?php esc_html_e('Loading Life Coach Hub...', 'lifecoachhub-app'); ?></p>
 		</div>
 
 		<iframe src="<?php echo esc_url($app_url); ?>" id="lifecoachhub-clean-iframe"
-			title="<?php esc_attr_e('LifeCoach Hub Application', 'lifecoachhub-app'); ?>"
+			title="<?php esc_attr_e('Life Coach Hub Application', 'lifecoachhub-app'); ?>"
 			class="lifecoachhub-clean-iframe"
 			sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation"
 			style="display: none;"></iframe>
@@ -198,15 +198,12 @@ if ($is_connected): ?>
 				clearTimeout(loadTimeout);
 				loading.style.display = 'none';
 				fallback.style.display = 'block';
-				console.error('LifeCoach Hub iframe failed to load');
 			});
 
 			// Listen for navigation messages from iframe
 			window.addEventListener('message', function (event) {
 				// Be more lenient with origin checking (if running on different ports/domains)
 				if (event.origin.startsWith(baseUrl) || event.origin.includes('localhost')) {
-					console.log('Message from LifeCoach Hub:', event.data);
-
 					// Handle navigation requests from iframe
 					if (event.data && event.data.type === 'navigate') {
 						updateIframeUrl(event.data.path);
@@ -219,8 +216,6 @@ if ($is_connected): ?>
 
 					// Handle other iframe communications
 					if (event.data && event.data.type === 'ready') {
-						console.log('LifeCoach Hub app is ready');
-
 						// Inject our external connector script again to ensure it's there
 						setTimeout(injectExternalConnector, 500);
 					}
@@ -242,8 +237,8 @@ if ($is_connected): ?>
 
 		<div class="lifecoachhub-connect-container">
 			<div class="lifecoachhub-connect-box">
-				<h2><?php esc_html_e('Connect to LifeCoach Hub', 'lifecoachhub-app'); ?></h2>
-				<p><?php esc_html_e('You are not connected to LifeCoach Hub. Please connect to access the application.', 'lifecoachhub-app'); ?>
+				<h2><?php esc_html_e('Connect to Life Coach Hub', 'lifecoachhub-app'); ?></h2>
+				<p><?php esc_html_e('You are not connected to Life Coach Hub. Please connect to access the application.', 'lifecoachhub-app'); ?>
 				</p>
 
 				<p>

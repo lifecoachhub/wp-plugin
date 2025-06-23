@@ -57,7 +57,7 @@
                 <div class="lifecoachhub-fullscreen">
                     <div class="lifecoachhub-fullscreen-header">
                         <div class="lifecoachhub-header-left">
-                            <h1>LifeCoach Hub</h1>
+                            <h1>Life Coach Hub</h1>
                         </div>
                         <div class="lifecoachhub-header-right">
                             <button class="button exit-fullscreen">Exit Full Screen</button>

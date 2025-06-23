@@ -343,6 +343,23 @@
     font-weight: 600;
 }
 
+/* Disconnect button styling */
+#lifecoachhub_disconnect {
+    color: #dc3232;
+    border-color: #dc3232;
+    margin-top: 10px;
+}
+
+#lifecoachhub_disconnect:hover {
+    background-color: #dc3232;
+    color: #fff;
+}
+
+/* Add spacing for connect button */
+.lifecoachhub-status-disconnected + p.description + p {
+    margin-top: 10px;
+}
+
 /* Fix for menu icon color */
 #adminmenu .toplevel_page_lifecoachhub .wp-menu-image img {
     width: 20px;

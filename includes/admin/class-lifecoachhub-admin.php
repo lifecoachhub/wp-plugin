@@ -28,16 +28,16 @@ class LifeCoachHub_Admin {
 	public function __construct() {
 		// Add menu
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
-		
+
 		// Enqueue admin scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-		
+
 		// Ajax handlers for proxy
 		add_action( 'wp_ajax_lifecoachhub_proxy', array( $this, 'handle_proxy_request' ) );
-		
+
 		// Handle API key callback
 		add_action( 'admin_init', array( $this, 'handle_api_callback' ) );
-		
+
 		// Add admin notices
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
@@ -59,7 +59,7 @@ class LifeCoachHub_Admin {
 			$menu_icon,
 			30
 		);
-		
+
 		// Settings page
 		add_submenu_page(
 			'lifecoachhub',
@@ -79,28 +79,28 @@ class LifeCoachHub_Admin {
 		if ( ! isset( $_GET['page'] ) || 'lifecoachhub' !== $_GET['page'] ) {
 			return;
 		}
-		
+
 		// Check if we have API key and connection status
 		if ( isset( $_GET['lifecoach_api_key'] ) && isset( $_GET['connection_status'] ) ) {
 			$api_key = sanitize_text_field( wp_unslash( $_GET['lifecoach_api_key'] ) );
 			$connection_status = sanitize_text_field( wp_unslash( $_GET['connection_status'] ) );
-			
+
 			// Store API key and connection status
 			update_option( 'lifecoachhub_api_key', $api_key );
 			update_option( 'lifecoachhub_connection_status', $connection_status );
 			update_option( 'lifecoachhub_connected_at', current_time( 'mysql' ) );
-			
+
 			// Redirect to clean URL
 			$redirect_url = admin_url( 'admin.php?page=lifecoachhub' );
 			if ( 'success' === $connection_status ) {
 				$redirect_url = add_query_arg( 'connected', '1', $redirect_url );
 			}
-			
+
 			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 	}
-	
+
 	/**
 	 * Show admin notices
 	 */
@@ -109,28 +109,28 @@ class LifeCoachHub_Admin {
 		if ( ! $screen || 'toplevel_page_lifecoachhub' !== $screen->id ) {
 			return;
 		}
-		
+
 		// Check if connected - if so, don't show any notices to keep page clean
 		$api_key = get_option( 'lifecoachhub_api_key' );
 		$connection_status = get_option( 'lifecoachhub_connection_status' );
 		$is_connected = $api_key && 'success' === $connection_status;
-		
+
 		if ( $is_connected ) {
 			return; // Don't show any notices when connected
 		}
-		
+
 		// Show connection success message
 		if ( isset( $_GET['connected'] ) && '1' === $_GET['connected'] ) {
 			echo '<div class="notice notice-success is-dismissible">';
-			echo '<p>' . esc_html__( 'Successfully connected to LifeCoach Hub!', 'lifecoachhub-app' ) . '</p>';
+			echo '<p>' . esc_html__( 'Successfully connected to Life Coach Hub!', 'lifecoachhub-app' ) . '</p>';
 			echo '</div>';
 		}
-		
+
 		// Show connection status for non-connected states
 		if ( $connection_status && $api_key ) {
 			if ( 'success' !== $connection_status ) {
 				echo '<div class="notice notice-error">';
-				echo '<p>' . esc_html__( 'Connection to LifeCoach Hub failed. Please try again.', 'lifecoachhub-app' ) . '</p>';
+				echo '<p>' . esc_html__( 'Connection to Life Coach Hub failed. Please try again.', 'lifecoachhub-app' ) . '</p>';
 				echo '</div>';
 			}
 		}
@@ -145,13 +145,13 @@ class LifeCoachHub_Admin {
 			return;
 		}
 
-		wp_enqueue_style( 
-			'lifecoachhub-admin', 
-			LIFECOACHHUB_PLUGIN_URL . 'assets/css/admin.css', 
-			array(), 
-			'1.0.0' 
+		wp_enqueue_style(
+			'lifecoachhub-admin',
+			LIFECOACHHUB_PLUGIN_URL . 'assets/css/admin.css',
+			array(),
+			'1.0.0'
 		);
-		
+
 		wp_enqueue_script(
 			'lifecoachhub-admin-js',
 			LIFECOACHHUB_PLUGIN_URL . 'assets/js/admin.js',
@@ -159,11 +159,11 @@ class LifeCoachHub_Admin {
 			'1.0.0',
 			true
 		);
-		
+
 		// Get stored API key
 		$api_key = get_option( 'lifecoachhub_api_key' );
 		$app_url = $this->app_url . '/launchpad';
-		
+
 		// Add API key and source parameter to app URL if available
 		if ( $api_key ) {
 			$app_url = add_query_arg( array(
@@ -172,7 +172,7 @@ class LifeCoachHub_Admin {
 				'embedded' => '1'
 			), $app_url );
 		}
-		
+
 		wp_localize_script(
 			'lifecoachhub-admin-js',
 			'lifecoachhubData',
@@ -194,16 +194,16 @@ class LifeCoachHub_Admin {
 		if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'lifecoachhub_proxy_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid security token' ), 403 );
 		}
-		
+
 		// Make sure user has permission
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => 'Permission denied' ), 403 );
 		}
-		
+
 		// Get target URL
 		$target_path = isset( $_REQUEST['path'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['path'] ) ) : '';
 		$url = trailingslashit( $this->app_url ) . ltrim( $target_path, '/' );
-		
+
 		// Set up the request
 		$args = array(
 			'timeout'     => 60,
@@ -215,35 +215,35 @@ class LifeCoachHub_Admin {
 				'Origin' => home_url(),
 			),
 		);
-		
+
 		// Add API key to headers if available
 		$api_key = get_option( 'lifecoachhub_api_key' );
 		if ( $api_key ) {
 			$args['headers']['Authorization'] = 'Bearer ' . $api_key;
 			$args['headers']['X-API-Key'] = $api_key;
 		}
-		
+
 		// Get method and add body if needed
 		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) : 'GET';
 		$args['method'] = $method;
-		
+
 		if ( 'POST' === $method && isset( $_POST ) && ! empty( $_POST ) ) {
 			$args['body'] = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		}
-		
+
 		// Make the request
 		$response = wp_remote_request( $url, $args );
-		
+
 		// Check for errors
 		if ( is_wp_error( $response ) ) {
 			wp_send_json_error( array( 'message' => $response->get_error_message() ), 500 );
 		}
-		
+
 		// Get the response body
 		$body = wp_remote_retrieve_body( $response );
 		$status = wp_remote_retrieve_response_code( $response );
 		$headers = wp_remote_retrieve_headers( $response );
-		
+
 		// Return JSON response with the content
 		wp_send_json(
 			array(
@@ -263,10 +263,10 @@ class LifeCoachHub_Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		
+
 		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-admin-page.php';
 	}
-	
+
 	/**
 	 * Render settings page
 	 */
@@ -275,36 +275,55 @@ class LifeCoachHub_Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		
+
 		// Handle form submission
 		$this->handle_settings_form();
-		
+
 		// Load settings page template
 		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-settings-page.php';
 	}
-	
+
 	/**
 	 * Handle settings form submission
 	 */
 	private function handle_settings_form() {
+		// Check if disconnect button was clicked
+		if ( isset( $_POST['lifecoachhub_disconnect'] ) ) {
+			// Verify nonce
+			if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) ||
+				! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lifecoachhub_settings_nonce'] ) ), 'lifecoachhub_save_settings' ) ) {
+				add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub-app' ), 'error' );
+				return;
+			}
+
+			// Delete all connection related options
+			delete_option( 'lifecoachhub_api_key' );
+			delete_option( 'lifecoachhub_connection_status' );
+			delete_option( 'lifecoachhub_connected_at' );
+
+			// Add success message
+			add_settings_error( 'lifecoachhub_settings', 'disconnected', __( 'Successfully disconnected from Life Coach Hub.', 'lifecoachhub-app' ), 'success' );
+			return;
+		}
+
 		// Check if form was submitted
 		if ( ! isset( $_POST['lifecoachhub_settings_submit'] ) ) {
 			return;
 		}
-		
+
 		// Verify nonce
-		if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) || 
+		if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) ||
 			 ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lifecoachhub_settings_nonce'] ) ), 'lifecoachhub_save_settings' ) ) {
 			add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub-app' ), 'error' );
 			return;
 		}
-		
+
 		// Get API key from form
 		$api_key = isset( $_POST['lifecoachhub_api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['lifecoachhub_api_key'] ) ) : '';
-		
+
 		// Save settings
 		update_option( 'lifecoachhub_api_key', $api_key );
-		
+
 		// If API key was provided, update connection status
 		if ( ! empty( $api_key ) ) {
 			update_option( 'lifecoachhub_connection_status', 'manual' );
@@ -314,7 +333,7 @@ class LifeCoachHub_Admin {
 			delete_option( 'lifecoachhub_connection_status' );
 			delete_option( 'lifecoachhub_connected_at' );
 		}
-		
+
 		add_settings_error( 'lifecoachhub_settings', 'settings_updated', __( 'Settings saved successfully.', 'lifecoachhub-app' ), 'success' );
 	}
 }
