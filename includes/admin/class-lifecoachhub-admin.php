@@ -20,12 +20,15 @@ class LifeCoachHub_Admin {
 	 *
 	 * @var string
 	 */
-	private $app_url = 'http://localhost:8000'; // 'https://app.lifecoachhub.com/';
+	private $app_url;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		// Initialize app URL from constant
+		$this->app_url = LIFECOACHHUB_APP_URL;
+
 		// Add menu
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 

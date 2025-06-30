@@ -17,7 +17,7 @@ $connected_at = get_option( 'lifecoachhub_connected_at', '' );
 $is_connected = ! empty( $api_key ) && ! empty( $connection_status );
 
 // Build app URL with source parameter
-$app_url = 'http://localhost:8000'; // 'https://app.lifecoachhub.com/';
+$app_url = LIFECOACHHUB_APP_URL;
 
 if ( ! $is_connected ) {
     $app_url = $app_url . '/login';
@@ -99,7 +99,7 @@ if ( ! $is_connected ) {
                                     <?php esc_html_e( 'Go to Life Coach Hub Dashboard', 'lifecoachhub-app' ); ?>
                                 </a>
                                 
-                                <a href="http://localhost:8000" class="button" target="_blank">
+                                <a href="<?php echo esc_url( LIFECOACHHUB_APP_URL ); ?>" class="button" target="_blank">
                                     <?php esc_html_e( 'Visit Life Coach Hub Website', 'lifecoachhub-app' ); ?>
                                 </a>
                             </p>

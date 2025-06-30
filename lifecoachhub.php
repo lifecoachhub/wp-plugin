@@ -22,6 +22,49 @@ define( 'LIFECOACHHUB_PLUGIN_FILE', __FILE__ );
 define( 'LIFECOACHHUB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LIFECOACHHUB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// Define app URLs - change these based on environment
+define( 'LIFECOACHHUB_DEV_URL', 'http://localhost:8000' );
+define( 'LIFECOACHHUB_PROD_URL', 'https://app.lifecoachhub.com' );
+
+// Define current app URL - switch between development and production
+// For development, use LIFECOACHHUB_DEV_URL
+// For production, use LIFECOACHHUB_PROD_URL
+define( 'LIFECOACHHUB_APP_URL', LIFECOACHHUB_DEV_URL );
+
+/**
+ * Get the Life Coach Hub app URL
+ * 
+ * @param string $path Optional path to append to the base URL
+ * @return string The complete app URL
+ */
+function lifecoachhub_get_app_url( $path = '' ) {
+	$base_url = LIFECOACHHUB_APP_URL;
+	
+	if ( ! empty( $path ) ) {
+		$base_url = trailingslashit( $base_url ) . ltrim( $path, '/' );
+	}
+	
+	return $base_url;
+}
+
+/**
+ * Check if we're in development mode
+ * 
+ * @return bool True if in development mode
+ */
+function lifecoachhub_is_dev_mode() {
+	return LIFECOACHHUB_APP_URL === LIFECOACHHUB_DEV_URL;
+}
+
+/**
+ * Get both dev and prod URLs for CSP headers
+ * 
+ * @return string Space-separated URLs for CSP
+ */
+function lifecoachhub_get_csp_urls() {
+	return LIFECOACHHUB_DEV_URL . ' ' . LIFECOACHHUB_PROD_URL;
+}
+
 /**
  * Main LifeCoachHub Plugin Class
  */
@@ -103,7 +146,7 @@ class LifeCoachHub {
 		}
 		
 		// Allow iframe embedding from the external app domain
-		header('Content-Security-Policy: frame-ancestors \'self\' http://localhost:8000 https://app.lifecoachhub.com');
+		header('Content-Security-Policy: frame-ancestors \'self\' ' . lifecoachhub_get_csp_urls());
 	}
 
 	/**
