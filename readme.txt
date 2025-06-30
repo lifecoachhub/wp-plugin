@@ -3,6 +3,7 @@ Contributors: lifecoachhub
 Tags: coaching, business management, scheduling, client management, courses, digital products
 Tested up to: 6.7
 Stable tag: 0.1.0
+Requires PHP: 7.4.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,17 +109,15 @@ For help, visit https://lifecoachhub.com/support
 == Screenshots ==
 
 1. Life Coach Hub dashboard integrated with WordPress
-2. Client management interface
-3. Session scheduling and booking
-4. Digital product and course management
-5. Progress tracking and client tools
+2. Create Coaching Session
+3. Session scheduling and coach availability
+4. Connection link with Life Coach Hub
+5. Coach Offers and all digital content lists
+6. Coach Profile Directory
+7. Client List
+8. Client Folder Details
 
 == Changelog ==
 
-= 0.1.0 =
-* Initial release
-
-== Upgrade Notice ==
-
-= 0.1.0 =
-This is the first version of the Life Coach Hub plugin for WordPress.
+= 0.1.0 - June 27, 2025 =
+* Initial release with coach/client can connect their site with Life coach hub.
