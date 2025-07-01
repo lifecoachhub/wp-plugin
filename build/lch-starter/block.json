@@ -1,17 +1,17 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "create-block/lch-starter",
+  "name": "lifecoachhub/lch-starter",
   "version": "0.1.0",
-  "title": "Lch Starter",
+  "title": "Life Coach Hub Starter",
   "category": "widgets",
   "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Example block scaffolded with Create Block tool for Life Coach Hub.",
   "example": {},
   "supports": {
     "html": false
   },
-  "textdomain": "lch-starter",
+  "textdomain": "lifecoachhub",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",

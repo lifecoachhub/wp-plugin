@@ -1,0 +1,17 @@
+{
+    "name": "lifecoachhub/lifecoachhub",
+    "description": "Coaching and mentoring platform for coaches and clients.",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Lifecoachhub\\Lifecoachhub\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ManiruzzamanAkash",
+            "email": "manirujjamanakash@gmail.com"
+        }
+    ],
+    "require": {}
+}
