@@ -9,7 +9,6 @@
     
     // Only run in iframe context
     if (window.self === window.top) {
-        console.log('Not in iframe, external connector not initialized');
         return;
     }
     

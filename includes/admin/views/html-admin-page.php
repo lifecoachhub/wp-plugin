@@ -80,8 +80,6 @@ if ($is_connected): ?>
 			const adminPageUrl = '<?php echo esc_js(admin_url('admin.php?page=lifecoachhub')); ?>';
 			let loadTimeout;
 
-			console.log('apiKey', apiKey);
-
 			// Function to inject our external connector script into the iframe
 			function injectExternalConnector() {
 				try {
