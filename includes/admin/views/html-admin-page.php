@@ -31,7 +31,11 @@ if ($api_key) {
 	$app_url = $app_url . '/login';
 
 	// For connection, add redirect URL and external connection flag
-	$redirect_url = home_url($_SERVER['REQUEST_URI']);
+	$redirect_url = home_url('/');
+	if (isset($_SERVER['REQUEST_URI'])) {
+		$request_uri = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+		$redirect_url = home_url($request_uri);
+	}
 	$app_url = add_query_arg(array(
 		'redirect_url' => urlencode($redirect_url),
 		'external_connection' => '1'
