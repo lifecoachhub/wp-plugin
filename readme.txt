@@ -1,13 +1,13 @@
 === Life Coach Hub ===
 Contributors: lifecoachhub
-Tags: coaching, business management, scheduling, client management, courses, digital products
-Tested up to: 6.7
+Tags: coaching, business management, scheduling, client management, courses
+Tested up to: 6.8
 Stable tag: 0.1.0
 Requires PHP: 7.4.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Connect Your WordPress Site to Your Coaching Business - Run your practice, sell your offers, and manage clients directly from your WordPress dashboard.
+Connect your WordPress site to your coaching business. Manage clients, sessions, and courses from your WordPress dashboard.
 
 == Description ==
 

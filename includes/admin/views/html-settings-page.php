@@ -57,6 +57,7 @@ if ( ! $is_connected ) {
                                         <?php
                                         /* translators: %s: date and time of connection */
                                         printf(
+                                            /* translators: %s: formatted date and time */
                                             esc_html__( 'Connected since: %s', 'lifecoachhub' ),
                                             esc_html( date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $connected_at ) ) )
                                         );
