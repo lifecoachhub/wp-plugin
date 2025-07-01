@@ -391,3 +391,12 @@
 	align-items: center;
 	justify-content: center;
 }
+
+#lifecoachhub-admin-app {
+    margin-top: 20px;
+}
+
+#lifecoachhub-admin-app iframe {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 600px;
+}

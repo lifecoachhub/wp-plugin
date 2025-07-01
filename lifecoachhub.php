@@ -67,122 +67,166 @@ function lifecoachhub_get_csp_urls() {
 }
 
 /**
+ * Check if Composer autoloader exists and load it
+ */
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    // Fallback: load classes manually if Composer autoloader is not available
+    add_action( 'admin_notices', 'lifecoachhub_missing_autoloader_notice' );
+}
+
+/**
+ * Show notice when Composer autoloader is missing
+ */
+function lifecoachhub_missing_autoloader_notice() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+    
+    echo '<div class="notice notice-error">';
+    echo '<p><strong>Life Coach Hub:</strong> ' . esc_html__( 'Composer autoloader not found. Please run "composer install" or contact your administrator.', 'lifecoachhub' ) . '</p>';
+    echo '</div>';
+}
+
+/**
  * Main LifeCoachHub Plugin Class
  */
 class LifeCoachHub {
 
-	/**
-	 * Instance of this class
-	 *
-	 * @var object
-	 */
-	protected static $instance = null;
+    /**
+     * Instance of this class
+     *
+     * @var object
+     */
+    protected static $instance = null;
 
-	/**
-	 * Return an instance of this class
-	 *
-	 * @return object A single instance of this class
-	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+    /**
+     * Return an instance of this class
+     *
+     * @return object A single instance of this class
+     */
+    public static function get_instance() {
+        if ( null === self::$instance ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->includes();
-		$this->init_hooks();
-	}
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->init_hooks();
+    }
 
-	/**
-	 * Include required files
-	 */
-	private function includes() {
-		// Include admin class
-		require_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/class-lifecoachhub-admin.php';
-	}
+    /**
+     * Initialize hooks
+     */
+    private function init_hooks() {
+        // Register blocks
+        add_action( 'init', array( $this, 'register_blocks' ) );
+        
+        // Register external connector script
+        add_action( 'admin_enqueue_scripts', array( $this, 'register_external_connector' ) );
+        
+        // Add security headers
+        add_action( 'admin_init', array( $this, 'add_security_headers' ) );
+        
+        // Add plugin action links
+        add_filter( 'plugin_action_links_' . plugin_basename( LIFECOACHHUB_PLUGIN_FILE ), array( $this, 'add_plugin_action_links' ) );
+        
+        // Initialize admin if in admin area and dependencies are met
+        if ( is_admin() && lifecoachhub_dependencies_met() ) {
+            lifecoachhub_safe_instantiate( 'LifeCoachHub\\Admin\\LifeCoachHub_Admin' );
+        }
+    }
+    
+    /**
+     * Register external connector script
+     */
+    public function register_external_connector( $hook ) {
+        if ( 'toplevel_page_lifecoachhub' !== $hook ) {
+            return;
+        }
+        
+        wp_enqueue_script(
+            'lifecoachhub-external-connector',
+            LIFECOACHHUB_PLUGIN_URL . 'assets/js/external-connector.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+    
+    /**
+     * Add security headers
+     */
+    public function add_security_headers() {
+        $screen = get_current_screen();
+        if ( ! $screen || 'toplevel_page_lifecoachhub' !== $screen->id ) {
+            return;
+        }
+        
+        // Allow iframe embedding from the external app domain
+        header('Content-Security-Policy: frame-ancestors \'self\' ' . lifecoachhub_get_csp_urls());
+    }
 
-	/**
-	 * Initialize hooks
-	 */
-	private function init_hooks() {
-		// Register blocks
-		add_action( 'init', array( $this, 'register_blocks' ) );
-		
-		// Register external connector script
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_external_connector' ) );
-		
-		// Add security headers
-		add_action( 'admin_init', array( $this, 'add_security_headers' ) );
-	}
-	
-	/**
-	 * Register external connector script
-	 */
-	public function register_external_connector( $hook ) {
-		if ( 'toplevel_page_lifecoachhub' !== $hook ) {
-			return;
-		}
-		
-		wp_enqueue_script(
-			'lifecoachhub-external-connector',
-			LIFECOACHHUB_PLUGIN_URL . 'assets/js/external-connector.js',
-			array(),
-			'1.0.0',
-			true
-		);
-	}
-	
-	/**
-	 * Add security headers
-	 */
-	public function add_security_headers() {
-		$screen = get_current_screen();
-		if ( ! $screen || 'toplevel_page_lifecoachhub' !== $screen->id ) {
-			return;
-		}
-		
-		// Allow iframe embedding from the external app domain
-		header('Content-Security-Policy: frame-ancestors \'self\' ' . lifecoachhub_get_csp_urls());
-	}
+    /**
+     * Register blocks
+     */
+    public function register_blocks() {
+        // Check if blocks manifest exists before trying to register
+        $manifest_file = __DIR__ . '/build/blocks-manifest.php';
+        if ( ! file_exists( $manifest_file ) ) {
+            return;
+        }
 
-	/**
-	 * Register blocks
-	 */
-	public function register_blocks() {
-		/**
-		 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
-		 * based on the registered block metadata.
-		 */
-		if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
-			wp_register_block_types_from_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
-			return;
-		}
+        /**
+         * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
+         * based on the registered block metadata.
+         */
+        if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+            wp_register_block_types_from_metadata_collection( __DIR__ . '/build', $manifest_file );
+            return;
+        }
 
-		if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-			wp_register_block_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
-		}
+        if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
+            wp_register_block_metadata_collection( __DIR__ . '/build', $manifest_file );
+        }
 
-		$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
-		foreach ( array_keys( $manifest_data ) as $block_type ) {
-			register_block_type( __DIR__ . "/build/{$block_type}" );
-		}
-	}
+        $manifest_data = require $manifest_file;
+        foreach ( array_keys( $manifest_data ) as $block_type ) {
+            $block_path = __DIR__ . "/build/{$block_type}";
+            if ( file_exists( $block_path ) ) {
+                register_block_type( $block_path );
+            }
+        }
+    }
+
+    /**
+     * Add plugin action links
+     *
+     * @param array $links Existing plugin action links
+     * @return array Modified plugin action links
+     */
+    public function add_plugin_action_links( $links ) {
+        $settings_link = sprintf(
+            '<a href="%s">%s</a>',
+            esc_url( admin_url( 'admin.php?page=lifecoachhub-settings' ) ),
+            esc_html__( 'Settings', 'lifecoachhub' )
+        );
+        
+        array_unshift( $links, $settings_link );
+        
+        return $links;
+    }
 }
 
 // Initialize the plugin
 function lifecoachhub() {
-	return LifeCoachHub::get_instance();
+    return LifeCoachHub::get_instance();
 }
 
 // Start the plugin
 lifecoachhub();
-
-// Initialize admin
-if ( is_admin() ) {
-	new LifeCoachHub_Admin();
-}

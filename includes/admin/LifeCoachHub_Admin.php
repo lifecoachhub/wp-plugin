@@ -1,17 +1,18 @@
 <?php
 /**
- * LifeCoachHub Admin Class
+ * Admin functionality for LifeCoachHub plugin
  *
- * @package LifeCoachHub
- * @subpackage Admin
+ * @package LifeCoachHub\Admin
  */
 
+namespace LifeCoachHub\Admin;
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 /**
- * LifeCoachHub_Admin Class
+ * Admin class for LifeCoachHub
  */
 class LifeCoachHub_Admin {
 
