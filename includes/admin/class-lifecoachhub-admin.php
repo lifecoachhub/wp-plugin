@@ -54,8 +54,8 @@ class LifeCoachHub_Admin {
 
 		// Main app page
 		add_menu_page(
-			__( 'Life Coach Hub', 'lifecoachhub-app' ),
-			__( 'Life Coach Hub', 'lifecoachhub-app' ),
+			__( 'Life Coach Hub', 'lifecoachhub' ),
+			__( 'Life Coach Hub', 'lifecoachhub' ),
 			'manage_options',
 			'lifecoachhub',
 			array( $this, 'render_admin_page' ),
@@ -66,8 +66,8 @@ class LifeCoachHub_Admin {
 		// Settings page
 		add_submenu_page(
 			'lifecoachhub',
-			__( 'Settings', 'lifecoachhub-app' ),
-			__( 'Settings', 'lifecoachhub-app' ),
+			__( 'Settings', 'lifecoachhub' ),
+			__( 'Settings', 'lifecoachhub' ),
 			'manage_options',
 			'lifecoachhub-settings',
 			array( $this, 'render_settings_page' )
@@ -125,7 +125,7 @@ class LifeCoachHub_Admin {
 		// Show connection success message
 		if ( isset( $_GET['connected'] ) && '1' === $_GET['connected'] ) {
 			echo '<div class="notice notice-success is-dismissible">';
-			echo '<p>' . esc_html__( 'Successfully connected to Life Coach Hub!', 'lifecoachhub-app' ) . '</p>';
+			echo '<p>' . esc_html__( 'Successfully connected to Life Coach Hub!', 'lifecoachhub' ) . '</p>';
 			echo '</div>';
 		}
 
@@ -133,7 +133,7 @@ class LifeCoachHub_Admin {
 		if ( $connection_status && $api_key ) {
 			if ( 'success' !== $connection_status ) {
 				echo '<div class="notice notice-error">';
-				echo '<p>' . esc_html__( 'Connection to Life Coach Hub failed. Please try again.', 'lifecoachhub-app' ) . '</p>';
+				echo '<p>' . esc_html__( 'Connection to Life Coach Hub failed. Please try again.', 'lifecoachhub' ) . '</p>';
 				echo '</div>';
 			}
 		}
@@ -295,7 +295,7 @@ class LifeCoachHub_Admin {
 			// Verify nonce
 			if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) ||
 				! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lifecoachhub_settings_nonce'] ) ), 'lifecoachhub_save_settings' ) ) {
-				add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub-app' ), 'error' );
+				add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub' ), 'error' );
 				return;
 			}
 
@@ -305,7 +305,7 @@ class LifeCoachHub_Admin {
 			delete_option( 'lifecoachhub_connected_at' );
 
 			// Add success message
-			add_settings_error( 'lifecoachhub_settings', 'disconnected', __( 'Successfully disconnected from Life Coach Hub.', 'lifecoachhub-app' ), 'success' );
+			add_settings_error( 'lifecoachhub_settings', 'disconnected', __( 'Successfully disconnected from Life Coach Hub.', 'lifecoachhub' ), 'success' );
 			return;
 		}
 
@@ -317,7 +317,7 @@ class LifeCoachHub_Admin {
 		// Verify nonce
 		if ( ! isset( $_POST['lifecoachhub_settings_nonce'] ) ||
 			 ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lifecoachhub_settings_nonce'] ) ), 'lifecoachhub_save_settings' ) ) {
-			add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub-app' ), 'error' );
+			add_settings_error( 'lifecoachhub_settings', 'invalid_nonce', __( 'Security verification failed. Please try again.', 'lifecoachhub' ), 'error' );
 			return;
 		}
 
@@ -337,6 +337,6 @@ class LifeCoachHub_Admin {
 			delete_option( 'lifecoachhub_connected_at' );
 		}
 
-		add_settings_error( 'lifecoachhub_settings', 'settings_updated', __( 'Settings saved successfully.', 'lifecoachhub-app' ), 'success' );
+		add_settings_error( 'lifecoachhub_settings', 'settings_updated', __( 'Settings saved successfully.', 'lifecoachhub' ), 'success' );
 	}
 }

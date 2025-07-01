@@ -45,27 +45,27 @@ if ($is_connected): ?>
 			<p>
 				<span class="wp-block-spinner">
 					<svg class="lifecoachhub-spinner" fill="#000000" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-						<title><?php esc_html_e('Loading', 'lifecoachhub-app'); ?></title>
+						<title><?php esc_html_e('Loading', 'lifecoachhub'); ?></title>
 						<path d="M0 16q0 0.832 0.576 1.44t1.44 0.576h4q0.8 0 1.408-0.576t0.576-1.44-0.576-1.408-1.408-0.576h-4q-0.832 0-1.44 0.576t-0.576 1.408zM4.096 25.888q0 0.832 0.608 1.44t1.408 0.576 1.408-0.576l2.816-2.816q0.608-0.608 0.608-1.408t-0.608-1.44-1.408-0.576-1.408 0.576l-2.816 2.848q-0.608 0.576-0.608 1.376zM4.096 6.112q0 0.832 0.608 1.408l2.816 2.848q0.576 0.576 1.408 0.576t1.408-0.576 0.608-1.44-0.608-1.408l-2.816-2.816q-0.576-0.608-1.408-0.608t-1.408 0.608-0.608 1.408zM14.016 30.016q0 0.832 0.576 1.408t1.408 0.576 1.408-0.576 0.608-1.408v-4q0-0.832-0.608-1.408t-1.408-0.608-1.408 0.608-0.576 1.408v4zM14.016 6.016q0 0.832 0.576 1.408t1.408 0.576 1.408-0.576 0.608-1.408v-4q0-0.832-0.608-1.408t-1.408-0.608-1.408 0.608-0.576 1.408v4zM21.056 23.104q0 0.8 0.608 1.408l2.816 2.816q0.576 0.576 1.408 0.576t1.44-0.576 0.576-1.44-0.576-1.376l-2.848-2.848q-0.576-0.576-1.408-0.576t-1.408 0.576-0.608 1.44zM21.056 8.928q0 0.832 0.608 1.44t1.408 0.576 1.408-0.576l2.848-2.848q0.576-0.576 0.576-1.408t-0.576-1.408-1.44-0.608-1.408 0.608l-2.816 2.816q-0.608 0.576-0.608 1.408zM24 16q0 0.832 0.576 1.44t1.44 0.576h4q0.8 0 1.408-0.576t0.576-1.44-0.576-1.408-1.408-0.576h-4q-0.832 0-1.44 0.576t-0.576 1.408z"></path>
 					</svg>
 				</span>
 				<br>
-				<?php esc_html_e('Loading Life Coach Hub...', 'lifecoachhub-app'); ?>
+				<?php esc_html_e('Loading Life Coach Hub...', 'lifecoachhub'); ?>
 			</p>
 		</div>
 
 		<iframe src="<?php echo esc_url($app_url); ?>" id="lifecoachhub-clean-iframe"
-			title="<?php esc_attr_e('Life Coach Hub Application', 'lifecoachhub-app'); ?>"
+			title="<?php esc_attr_e('Life Coach Hub Application', 'lifecoachhub'); ?>"
 			class="lifecoachhub-clean-iframe"
 			sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation"
 			style="display: none;"></iframe>
 
 		<div id="iframe-fallback" style="display: none; text-align: center; padding: 50px;">
-			<h3><?php esc_html_e('Unable to load embedded view', 'lifecoachhub-app'); ?></h3>
-			<p><?php esc_html_e('The application cannot be embedded due to security restrictions.', 'lifecoachhub-app'); ?>
+			<h3><?php esc_html_e('Unable to load embedded view', 'lifecoachhub'); ?></h3>
+			<p><?php esc_html_e('The application cannot be embedded due to security restrictions.', 'lifecoachhub'); ?>
 			</p>
 			<a href="<?php echo esc_url($app_url); ?>" class="button button-primary" target="_blank">
-				<?php esc_html_e('Open in New Tab', 'lifecoachhub-app'); ?>
+				<?php esc_html_e('Open in New Tab', 'lifecoachhub'); ?>
 			</a>
 		</div>
 	</div>
@@ -244,13 +244,13 @@ if ($is_connected): ?>
 
 		<div class="lifecoachhub-connect-container">
 			<div class="lifecoachhub-connect-box">
-				<h2><?php esc_html_e('Connect to Life Coach Hub', 'lifecoachhub-app'); ?></h2>
-				<p><?php esc_html_e('You are not connected to Life Coach Hub. Please connect to access the application.', 'lifecoachhub-app'); ?>
+				<h2><?php esc_html_e('Connect to Life Coach Hub', 'lifecoachhub'); ?></h2>
+				<p><?php esc_html_e('You are not connected to Life Coach Hub. Please connect to access the application.', 'lifecoachhub'); ?>
 				</p>
 
 				<p>
 					<a href="<?php echo esc_url($app_url); ?>" class="button button-primary">
-						<?php esc_html_e('Connect', 'lifecoachhub-app'); ?>
+						<?php esc_html_e('Connect', 'lifecoachhub'); ?>
 					</a>
 				</p>
 			</div>
