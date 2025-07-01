@@ -12,8 +12,6 @@
         return;
     }
     
-    console.log('Life Coach Hub External Connector initialized');
-    
     // Configuration
     let config = {
         apiKey: '',
