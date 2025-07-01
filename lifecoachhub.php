@@ -71,9 +71,6 @@ function lifecoachhub_get_csp_urls() {
  */
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
     require_once __DIR__ . '/vendor/autoload.php';
-} else {
-    // Fallback: load classes manually if Composer autoloader is not available
-    add_action( 'admin_notices', 'lifecoachhub_missing_autoloader_notice' );
 }
 
 /**
