@@ -82,8 +82,9 @@ if ( ! $is_connected ) {
                                     <?php esc_html_e( 'Please enter your API key to connect with Life Coach Hub or use the Connect button below.', 'lifecoachhub' ); ?>
                                 </p>
                                 <p>
-                                    <a href="<?php echo esc_url( $app_url ); ?>" class="button button-primary">
+                                    <a href="<?php echo esc_url( $app_url ); ?>" class="button button-primary button-hero" style="background: #0073aa !important; color: #ffffff;">
                                         <?php esc_html_e( 'Connect', 'lifecoachhub' ); ?>
+                                        <span class="dashicons dashicons-admin-plugins"></span>
                                     </a>
                                 </p>
                             <?php endif; ?>
