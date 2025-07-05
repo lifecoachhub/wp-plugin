@@ -19,7 +19,6 @@ function lifecoachhub_class_exists( $class_name ) {
     try {
         return class_exists( $class_name );
     } catch ( Exception $e ) {
-        error_log( 'LifeCoachHub: Error checking class existence - ' . $e->getMessage() );
         return false;
     }
 }
@@ -33,14 +32,12 @@ function lifecoachhub_class_exists( $class_name ) {
  */
 function lifecoachhub_safe_instantiate( $class_name, $args = array() ) {
     if ( ! lifecoachhub_class_exists( $class_name ) ) {
-        error_log( "LifeCoachHub: Class {$class_name} not found" );
         return null;
     }
 
     try {
         return new $class_name( ...$args );
     } catch ( Exception $e ) {
-        error_log( "LifeCoachHub: Error instantiating {$class_name} - " . $e->getMessage() );
         return null;
     }
 }
