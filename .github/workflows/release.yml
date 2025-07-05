@@ -39,12 +39,39 @@ jobs:
 
       - name: Generate plugin zip
         run: |
-          mkdir -p temp-plugin/lifecoachhub
-          rsync -av --exclude='temp-plugin' --exclude='node_modules' --exclude='src' --exclude='.gitignore' --exclude='.editorconfig' --exclude='composer.lock' --exclude='package-lock.json' --exclude='.git' --exclude='.github' --exclude='*.zip' ./ temp-plugin/lifecoachhub/
-          cd temp-plugin
-          zip -r ../lifecoachhub.zip lifecoachhub/
+          # Create a clean directory structure
+          mkdir -p temp-build
+          
+          # Copy all files except excluded ones directly to temp-build
+          rsync -av \
+            --exclude='temp-build' \
+            --exclude='temp-plugin' \
+            --exclude='node_modules' \
+            --exclude='src' \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='.editorconfig' \
+            --exclude='composer.lock' \
+            --exclude='package-lock.json' \
+            --exclude='*.zip' \
+            --exclude='README.md' \
+            --exclude='phpcs.xml' \
+            --exclude='webpack.config.js' \
+            --exclude='package.json' \
+            ./ temp-build/
+          
+          # Create the zip from temp-build contents
+          cd temp-build
+          zip -r ../lifecoachhub.zip .
           cd ..
-          rm -rf temp-plugin
+          
+          # Clean up
+          rm -rf temp-build
+          
+          # Verify zip contents
+          echo "Zip contents:"
+          unzip -l lifecoachhub.zip | head -20
 
       - name: Get plugin version
         id: get_version
