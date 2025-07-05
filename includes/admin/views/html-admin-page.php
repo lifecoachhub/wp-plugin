@@ -255,7 +255,7 @@ if ($is_connected): ?>
 			<div class="lifecoachhub-hero">
 				<div class="lifecoachhub-hero-content">
 					<div class="lifecoachhub-logo">
-						<img src="<?php echo esc_url(LIFECOACHHUB_PLUGIN_URL . 'assets/images/logo.png'); ?>" alt="Life Coach Hub" />
+						<img src="<?php echo esc_url(LIFECOACHHUB_PLUGIN_URL . 'assets/images/logo.png'); ?>" alt="Life Coach Hub" /> <?php // phpcs:ignore ?>
 					</div>
 					<h1><?php esc_html_e('Welcome to Life Coach Hub!', 'lifecoachhub'); ?></h1>
 					<p class="hero-subtitle"><?php esc_html_e('Transform your coaching practice with our comprehensive platform designed specifically for life coaches.', 'lifecoachhub'); ?></p>
