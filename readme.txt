@@ -5,6 +5,8 @@ Tested up to: 6.8
 Stable tag: 0.1.0
 Requires PHP: 7.4.0
 License: GPL-2.0-or-later
+Author: Life Coach Hub
+Author URI: https://lifecoachhub.com
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Connect your WordPress site to your coaching business. Manage clients, sessions, and courses from your WordPress dashboard.

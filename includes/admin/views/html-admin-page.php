@@ -262,9 +262,11 @@ if ($is_connected): ?>
 					<div class="hero-buttons">
 						<a href="<?php echo esc_url($app_url); ?>" class="button button-primary button-hero">
 							<?php esc_html_e('Get Started Now', 'lifecoachhub'); ?>
+							<span class="dashicons dashicons-arrow-right-alt"></span>
 						</a>
 						<a href="<?php echo esc_url(admin_url()); ?>" class="button button-secondary button-hero">
 							<?php esc_html_e('Go Back to Dashboard', 'lifecoachhub'); ?>
+							<span class="dashicons dashicons-dashboard"></span>
 						</a>
 					</div>
 				</div>
@@ -404,9 +406,11 @@ if ($is_connected): ?>
 				<div class="cta-buttons">
 					<a href="<?php echo esc_url($app_url); ?>" class="button button-primary button-hero">
 						<?php esc_html_e('Get Started Now', 'lifecoachhub'); ?>
+						<span class="dashicons dashicons-arrow-right-alt"></span>
 					</a>
 					<a href="<?php echo esc_url(admin_url()); ?>" class="button button-secondary button-hero" style="color: #1d2327ba !important;">
 						<?php esc_html_e('Go Back to Dashboard', 'lifecoachhub'); ?>
+						<span class="dashicons dashicons-dashboard"></span>
 					</a>
 				</div>
 
@@ -418,6 +422,7 @@ if ($is_connected): ?>
 				<div style="margin-top: 0px;">
 					<a href="<?php echo esc_url(LIFECOACHHUB_APP_URL); ?>" class="button button-text button-hero" style="margin-top: 0;" target="_blank">
 						<?php esc_html_e('Try Life Coach Hub Online', 'lifecoachhub'); ?>
+						<span class="dashicons dashicons-external"></span>
 					</a>
 				</div>
 			</div>
