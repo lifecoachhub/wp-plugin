@@ -119,5 +119,6 @@ For help, visit https://lifecoachhub.com/support
 
 == Changelog ==
 
-= 0.1.0 - June 27, 2025 =
-* Initial release with coach/client can connect their site with Life coach hub.
+= 0.1.0 - July 05, 2025 =
+* Initial release with coach/client can connect their site with Life Coach Hub.
+* Client can connect / disconnect their Life Coach Hub site directly.
