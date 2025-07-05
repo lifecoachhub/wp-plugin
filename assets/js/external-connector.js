@@ -287,7 +287,6 @@
     window.addEventListener('message', function(event) {
         // Be more flexible with origin for development
         if (event.data && event.data.type === 'config') {
-            console.log('Received config from WordPress:', event.data);
 
             // Store configuration
             if (event.data.apiKey) {
@@ -318,7 +317,6 @@
                 const newUrl = ensureUrlHasParams(currentUrl);
 
                 if (newUrl !== currentUrl) {
-                    console.log('Updating URL with authentication parameters');
                     history.replaceState(null, '', newUrl);
                 }
             }
@@ -366,7 +364,6 @@
 
     // Extract API key from URL and use immediately
     if (config.apiKey) {
-        console.log('Found API key in URL, processing page immediately');
         setupLinkProcessor();
         setupFormProcessor();
     }

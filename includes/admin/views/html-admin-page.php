@@ -129,7 +129,6 @@ if ($is_connected): ?>
 
 			// Function to update iframe URL with API key parameters
 			function updateIframeUrl(path) {
-				console.log('updateIframeUrl::path', path)
 				// First, determine if this is a full URL or just a path
 				let url;
 				if (path.startsWith('http')) {
@@ -233,7 +232,6 @@ if ($is_connected): ?>
 
 					// Handle auth refresh requests
 					if (event.data && event.data.type === 'refresh_auth') {
-						console.log('Refreshing authentication');
 						// Reload iframe with fresh auth parameters
 						updateIframeUrl(iframe.src);
 					}

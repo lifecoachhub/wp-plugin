@@ -112,7 +112,6 @@
                         // If we can access the iframe document, it means it loaded successfully
                         // If we can't access it due to CORS but the iframe is visible, it's also successful
                         if (iframe.is(':visible')) {
-                            console.log('iframe loaded successfully');
                             // Add success button for full screen if connected
                             if (lifecoachhubData.apiKey) {
                                 addFullScreenOption();
