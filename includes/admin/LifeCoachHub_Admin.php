@@ -33,6 +33,17 @@ class LifeCoachHub_Admin {
 		// Add menu
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 
+		add_action(
+			'in_admin_header',
+			function () {
+				if ( isset( $_GET['page'] ) && 'lifecoachhub' === sanitize_text_field( $_GET['page'] ) ) { // phpcs:ignore
+					remove_all_actions( 'admin_notices' );
+					remove_all_actions( 'all_admin_notices' );
+				}
+			},
+			999
+		);
+
 		// Enqueue admin scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
@@ -146,7 +157,8 @@ class LifeCoachHub_Admin {
 	 */
 	public function admin_scripts( $hook ) {
 		// Load on both main plugin page and settings page
-		if ( 'toplevel_page_lifecoachhub' !== $hook && 'lifecoachhub_page_lifecoachhub-settings' !== $hook ) {
+		// die( 'Admin scripts loaded on hook: ' . $hook ); // Debugging line
+		if ( 'toplevel_page_lifecoachhub' !== $hook && 'life-coach-hub_page_lifecoachhub-settings' !== $hook ) {
 			return;
 		}
 

@@ -2,6 +2,10 @@
  * LifeCoachHub Admin Styles
  */
 
+#wpcontent:has(.lifecoachhub-admin-wrap) {
+	margin-left: 0px;
+}
+
 .lifecoachhub-admin-wrap {
 	margin: 20px 0;
 }
@@ -318,7 +322,7 @@
 }
 
 .lifecoachhub-connect-box {
-	max-width: 600px;
+	max-width: 1024px;
 	background: #fff;
 	padding: 25px;
 	border-radius: 5px;
@@ -327,7 +331,7 @@
 
 /* Settings page styles */
 .lifecoachhub-settings-container {
-	max-width: 800px;
+	max-width: 1024px;
 	background: #fff;
 	padding: 25px;
 	border-radius: 5px;
@@ -373,8 +377,8 @@
 	animation: lifecoachhub-spin 1s linear infinite;
 	display: inline-block;
 	vertical-align: middle;
-    width: 24px;
-    height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 @keyframes lifecoachhub-spin {
@@ -393,10 +397,780 @@
 }
 
 #lifecoachhub-admin-app {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 #lifecoachhub-admin-app iframe {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-height: 600px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	min-height: 600px;
+}
+
+/* Enhanced Welcome Page Styles */
+.lifecoachhub-welcome-container {
+	max-width: 1024px;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 50px;
+	background: #fff;
+	border-radius: 20px;
+}
+
+/* Hero Section */
+.lifecoachhub-hero {
+	background: linear-gradient(135deg, #667eea 0%, #308ce9 100%);
+	color: white;
+	text-align: center;
+	padding: 60px 40px;
+	margin: -20px -20px 40px -20px;
+	border-radius: 20px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.lifecoachhub-hero-content {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+.lifecoachhub-logo img {
+	max-width: 120px;
+	height: auto;
+	margin-bottom: 20px;
+	filter: brightness(0) invert(1);
+}
+
+.lifecoachhub-hero h1 {
+	font-size: 3rem;
+	font-weight: 700;
+	margin: 0 0 20px 0;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.hero-subtitle {
+	font-size: 1.25rem;
+	margin: 0 0 40px 0;
+	opacity: 0.95;
+	line-height: 1.6;
+	font-weight: 300;
+}
+
+.hero-buttons {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.button-hero {
+	padding: 15px 30px !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	border-radius: 50px !important;
+	text-decoration: none !important;
+	transition: all 0.3s ease !important;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+	border: none !important;
+	height: auto !important;
+	line-height: 1.4 !important;
+}
+
+.button-hero.button-primary {
+	background: #28a745 !important;
+	color: white !important;
+}
+
+.button-hero.button-primary:hover {
+	background: #218838 !important;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.button-hero.button-secondary {
+	background: rgba(255, 255, 255, 0.2) !important;
+	color: #fff !important;
+	border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.button-hero.button-secondary:hover {
+	background: rgba(255, 255, 255, 0.3) !important;
+	transform: translateY(-2px);
+}
+
+/* Features Grid */
+.lifecoachhub-features-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 30px;
+	margin: 60px 0;
+	padding: 0 20px;
+}
+
+.feature-card {
+	background: white;
+	padding: 40px 30px;
+	border-radius: 15px;
+	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	transition: all 0.3s ease;
+	border: 1px solid #f0f0f0;
+}
+
+.feature-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+	width: 80px;
+	height: 80px;
+	background: linear-gradient(135deg, #667eea 0%, #308ce9 100%);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 25px;
+}
+
+.feature-icon .dashicons {
+	font-size: 35px;
+	color: white;
+	width: 35px;
+	height: 35px;
+}
+
+.feature-card h3 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 0 0 15px 0;
+	color: #2c3e50;
+}
+
+.feature-card p {
+	color: #6c757d;
+	line-height: 1.6;
+	margin: 0;
+	font-size: 15px;
+}
+
+/* Benefits Section */
+.lifecoachhub-benefits {
+	background: #f8f9fa;
+	padding: 80px 40px;
+	margin: 60px -20px;
+	text-align: center;
+}
+
+.lifecoachhub-benefits h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin: 0 0 50px 0;
+	color: #2c3e50;
+}
+
+.benefits-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.benefit-card {
+	background: white;
+	padding: 30px 25px;
+	border-radius: 12px;
+	box-shadow: 0 3px 20px rgba(0, 0, 0, 0.06);
+	text-align: left;
+	transition: all 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.benefit-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-icon {
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.benefit-icon .dashicons {
+	font-size: 28px;
+	color: white;
+	width: 28px;
+	height: 28px;
+}
+
+.benefit-card h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin: 0 0 12px 0;
+	color: #2c3e50;
+}
+
+.benefit-card p {
+	color: #6c757d;
+	line-height: 1.5;
+	margin: 0;
+	font-size: 14px;
+}
+
+/* Trusted Section */
+.lifecoachhub-trusted {
+	text-align: center;
+	padding: 80px 40px;
+	background: linear-gradient(135deg, #667eea 0%, #308ce9 100%);
+	color: white;
+	margin: 60px -20px;
+	border-radius: 20px;
+}
+
+.lifecoachhub-trusted h2 {
+	font-size: 2rem;
+	line-height: 1.5;
+	font-weight: 700;
+	margin: 0 0 20px 0;
+	color: #fff;
+}
+
+.lifecoachhub-trusted p {
+	font-size: 1.2rem;
+	margin: 0 0 50px 0;
+	opacity: 0.95;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50px;
+}
+
+.trusted-stats {
+	display: flex;
+	justify-content: center;
+	gap: 60px;
+	flex-wrap: wrap;
+}
+
+.stat-item {
+	text-align: center;
+}
+
+.stat-number {
+	font-size: 3rem;
+	line-height: 1.7;
+	font-weight: 800;
+	color: #fff;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	margin-bottom: 10px;
+	display: block;
+}
+
+.stat-label {
+	font-size: 1rem;
+	opacity: 0.9;
+	font-weight: 500;
+	color: #f2e9e9;
+}
+
+/* Call to Action */
+.lifecoachhub-cta {
+	text-align: center;
+	padding: 80px 40px;
+	background: white;
+}
+
+.lifecoachhub-cta h2 {
+	font-size: 2rem;
+	font-weight: 700;
+	margin: 0 0 20px 0;
+	color: #2c3e50;
+	line-height: 1.5;
+}
+
+.lifecoachhub-cta p {
+	font-size: 1.2rem;
+	color: #6c757d;
+	margin: 0 0 40px 0;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 40px;
+	line-height: 1.6;
+}
+
+.cta-buttons {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Enhanced Button Styles */
+.lifecoachhub-admin-wrap .button,
+.lifecoachhub-welcome-container .button {
+	border-radius: 8px !important;
+	font-weight: 600 !important;
+	padding: 12px 24px !important;
+	font-size: 14px !important;
+	line-height: 1.4 !important;
+	text-decoration: none !important;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	border: none !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+	cursor: pointer !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 8px !important;
+	position: relative !important;
+	overflow: hidden !important;
+	height: auto !important;
+	min-height: 44px !important;
+}
+
+.lifecoachhub-admin-wrap .button:before,
+.lifecoachhub-welcome-container .button:before {
+	content: "" !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: -100% !important;
+	width: 100% !important;
+	height: 100% !important;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.2),
+		transparent
+	) !important;
+	transition: left 0.6s !important;
+	z-index: 1 !important;
+}
+
+.lifecoachhub-admin-wrap .button:hover:before,
+.lifecoachhub-welcome-container .button:hover:before {
+	left: 100% !important;
+}
+
+/* Primary Button Styles */
+.lifecoachhub-admin-wrap .button-primary,
+.lifecoachhub-welcome-container .button-primary {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+	color: #ffffff !important;
+	border: none !important;
+	position: relative !important;
+	z-index: 0 !important;
+}
+
+.lifecoachhub-admin-wrap .button-primary:hover,
+.lifecoachhub-welcome-container .button-primary:hover {
+	background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+	color: #ffffff !important;
+}
+
+.lifecoachhub-admin-wrap .button-primary:active,
+.lifecoachhub-welcome-container .button-primary:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Secondary Button Styles */
+.lifecoachhub-admin-wrap .button-secondary,
+.lifecoachhub-welcome-container .button-secondary {
+	background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+	color: #475569 !important;
+	border: 1px solid #cbd5e1 !important;
+	position: relative !important;
+	z-index: 0 !important;
+}
+
+.lifecoachhub-admin-wrap .button-secondary:hover,
+.lifecoachhub-welcome-container .button-secondary:hover {
+	background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 8px 25px rgba(71, 85, 105, 0.15) !important;
+	color: #334155 !important;
+	border-color: #94a3b8 !important;
+}
+
+.lifecoachhub-admin-wrap .button-secondary:active,
+.lifecoachhub-welcome-container .button-secondary:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1) !important;
+}
+
+/* Success/Connect Button Styles */
+.lifecoachhub-admin-wrap .button-success,
+.lifecoachhub-welcome-container .button-success {
+	background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+	color: #ffffff !important;
+	border: none !important;
+	position: relative !important;
+	z-index: 0 !important;
+}
+
+.lifecoachhub-admin-wrap .button-success:hover,
+.lifecoachhub-welcome-container .button-success:hover {
+	background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4) !important;
+	color: #ffffff !important;
+}
+
+/* Danger/Disconnect Button Styles */
+.lifecoachhub-admin-wrap .button-danger,
+.lifecoachhub-welcome-container .button-danger,
+#lifecoachhub_disconnect {
+	background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+	color: #ffffff !important;
+	border: none !important;
+	position: relative !important;
+	z-index: 0 !important;
+}
+
+.lifecoachhub-admin-wrap .button-danger:hover,
+.lifecoachhub-welcome-container .button-danger:hover,
+#lifecoachhub_disconnect:hover {
+	background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4) !important;
+	color: #ffffff !important;
+}
+
+/* Hero Button Styles */
+.hero-buttons .button-hero {
+	padding: 18px 36px !important;
+	font-size: 16px !important;
+	font-weight: 700 !important;
+	border-radius: 50px !important;
+	text-decoration: none !important;
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	border: none !important;
+	height: auto !important;
+	line-height: 1.4 !important;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+	position: relative !important;
+	overflow: hidden !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.5px !important;
+}
+
+.hero-buttons .button-hero:before {
+	content: "" !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: -100% !important;
+	width: 100% !important;
+	height: 100% !important;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.3),
+		transparent
+	) !important;
+	transition: left 0.8s !important;
+	z-index: 1 !important;
+}
+
+.hero-buttons .button-hero:hover:before {
+	left: 100% !important;
+}
+
+.hero-buttons .button-hero.button-primary {
+	background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+	color: white !important;
+}
+
+.hero-buttons .button-hero.button-primary:hover {
+	background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+	transform: translateY(-3px) scale(1.02) !important;
+	box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4) !important;
+}
+
+.hero-buttons .button-hero.button-secondary {
+	background: rgba(255, 255, 255, 0.15) !important;
+	color: #fff !important;
+	border: 2px solid rgba(255, 255, 255, 0.3) !important;
+	backdrop-filter: blur(10px) !important;
+}
+
+.hero-buttons .button-hero.button-secondary:hover {
+	background: rgba(255, 255, 255, 0.25) !important;
+	transform: translateY(-3px) scale(1.02) !important;
+	border-color: rgba(255, 255, 255, 0.5) !important;
+	box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* CTA Button Styles */
+.cta-buttons .button-hero {
+	padding: 16px 32px !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	border-radius: 12px !important;
+	min-width: 180px !important;
+}
+
+.cta-buttons .button-hero.button-primary {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+	color: white !important;
+}
+
+.cta-buttons .button-hero.button-primary:hover {
+	background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4) !important;
+}
+
+.cta-buttons .button-hero.button-secondary {
+	background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+	color: #475569 !important;
+	border: 1px solid #cbd5e1 !important;
+}
+
+.cta-buttons .button-hero.button-secondary:hover {
+	background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 10px 25px rgba(71, 85, 105, 0.15) !important;
+	color: #334155 !important;
+}
+
+/* Loading Button State */
+.button.loading {
+	position: relative !important;
+	color: transparent !important;
+	pointer-events: none !important;
+}
+
+.button.loading:after {
+	content: "" !important;
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	width: 20px !important;
+	height: 20px !important;
+	margin-top: -10px !important;
+	margin-left: -10px !important;
+	border: 2px solid transparent !important;
+	border-top: 2px solid currentColor !important;
+	border-radius: 50% !important;
+	animation: button-spin 1s linear infinite !important;
+}
+
+@keyframes button-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Button with Icons */
+.button .dashicons {
+	font-size: 16px !important;
+	width: 16px !important;
+	height: 16px !important;
+	line-height: 16px !important;
+	margin-right: 8px !important;
+	vertical-align: middle !important;
+}
+
+/* Small Button Variant */
+.button-small {
+	padding: 8px 16px !important;
+	font-size: 12px !important;
+	min-height: 32px !important;
+}
+
+/* Large Button Variant */
+.button-large {
+	padding: 16px 32px !important;
+	font-size: 16px !important;
+	min-height: 52px !important;
+}
+
+/* Button Group */
+.button-group {
+	display: flex !important;
+	gap: 12px !important;
+	align-items: center !important;
+	flex-wrap: wrap !important;
+}
+
+.button-group .button {
+	margin: 0 !important;
+}
+
+/* Disabled Button State */
+.button:disabled,
+.button.disabled {
+	opacity: 0.6 !important;
+	cursor: not-allowed !important;
+	transform: none !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.button:disabled:hover,
+.button.disabled:hover {
+	transform: none !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Focus States for Accessibility */
+.button:focus {
+	outline: 2px solid #667eea !important;
+	outline-offset: 2px !important;
+}
+
+.button-primary:focus {
+	outline-color: #667eea !important;
+}
+
+.button-secondary:focus {
+	outline-color: #475569 !important;
+}
+
+.button-success:focus {
+	outline-color: #10b981 !important;
+}
+
+.button-danger:focus,
+#lifecoachhub_disconnect:focus {
+	outline-color: #ef4444 !important;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+	.lifecoachhub-hero {
+		padding: 40px 20px;
+		margin: -20px -10px 30px -10px;
+	}
+
+	.lifecoachhub-hero h1 {
+		font-size: 2rem;
+		line-height: 1.4;
+	}
+
+	.hero-subtitle {
+		font-size: 1.1rem;
+	}
+
+	.hero-buttons {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.button-hero {
+		padding: 14px 28px !important;
+		font-size: 14px !important;
+		min-width: 200px !important;
+	}
+
+	.cta-buttons .button-hero {
+		padding: 14px 24px !important;
+		font-size: 14px !important;
+		min-width: 160px !important;
+	}
+
+	.lifecoachhub-features-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		padding: 0 10px;
+	}
+
+	.feature-card {
+		padding: 30px 20px;
+	}
+
+	.benefits-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.lifecoachhub-benefits,
+	.lifecoachhub-trusted,
+	.lifecoachhub-cta {
+		padding: 50px 20px;
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+
+	.lifecoachhub-benefits h2,
+	.lifecoachhub-trusted h2,
+	.lifecoachhub-cta h2 {
+		font-size: 2rem;
+	}
+
+	.trusted-stats {
+		gap: 30px;
+	}
+
+	.stat-number {
+		font-size: 2.2rem;
+	}
+
+	.cta-buttons {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.button-group {
+		flex-direction: column !important;
+		align-items: stretch !important;
+	}
+
+	.button-group .button {
+		width: 100% !important;
+		justify-content: center !important;
+	}
+}
+
+@media screen and (max-width: 968px) {
+	.lifecoachhub-features-grid {
+		grid-template-columns: 1fr;
+		padding: 0 5px;
+	}
+
+	.feature-card {
+		padding: 25px 15px;
+	}
+
+	.feature-icon {
+		width: 70px;
+		height: 70px;
+	}
+
+	.feature-icon .dashicons {
+		font-size: 30px;
+		width: 30px;
+		height: 30px;
+	}
+
+	.trusted-stats {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.lifecoachhub-admin-wrap .button,
+	.lifecoachhub-welcome-container .button {
+		padding: 12px 20px !important;
+		font-size: 13px !important;
+		min-height: 40px !important;
+	}
+
+	.hero-buttons .button-hero {
+		padding: 12px 24px !important;
+		font-size: 13px !important;
+		min-width: 180px !important;
+	}
 }

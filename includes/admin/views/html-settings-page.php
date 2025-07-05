@@ -95,7 +95,7 @@ if ( ! $is_connected ) {
                             <?php esc_html_e( 'Quick Links', 'lifecoachhub' ); ?>
                         </th>
                         <td>
-                            <p>
+                            <p class="">
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=lifecoachhub' ) ); ?>" class="button">
                                     <?php esc_html_e( 'Go to Life Coach Hub Dashboard', 'lifecoachhub' ); ?>
                                 </a>
