@@ -40,7 +40,7 @@ jobs:
       - name: Generate plugin zip
         run: |
           mkdir -p temp-plugin/lifecoachhub
-          rsync -av --exclude='temp-plugin' --exclude='node_modules' --exclude='.git' --exclude='.github' --exclude='*.zip' ./ temp-plugin/lifecoachhub/
+          rsync -av --exclude='temp-plugin' --exclude='node_modules' --exclude='src' --exclude='.gitignore' --exclude='.editorconfig' --exclude='composer.lock' --exclude='package-lock.json' --exclude='.git' --exclude='.github' --exclude='*.zip' ./ temp-plugin/lifecoachhub/
           cd temp-plugin
           zip -r ../lifecoachhub.zip lifecoachhub/
           cd ..
