@@ -95,12 +95,12 @@ if ( ! $is_connected ) {
                             <?php esc_html_e( 'Quick Links', 'lifecoachhub' ); ?>
                         </th>
                         <td>
-                            <p class="">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=lifecoachhub' ) ); ?>" class="button">
+                            <p style="display: flex; gap: 10px;">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=lifecoachhub' ) ); ?>" class="button button-primary">
                                     <?php esc_html_e( 'Go to Life Coach Hub Dashboard', 'lifecoachhub' ); ?>
                                 </a>
 
-                                <a href="<?php echo esc_url( LIFECOACHHUB_APP_URL ); ?>" class="button" target="_blank">
+                                <a href="<?php echo esc_url( LIFECOACHHUB_APP_URL ); ?>" class="button button-secondary" target="_blank">
                                     <?php esc_html_e( 'Visit Life Coach Hub Website', 'lifecoachhub' ); ?>
                                 </a>
                             </p>
