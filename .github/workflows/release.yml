@@ -1,0 +1,106 @@
+name: Create Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          extensions: mbstring, intl, zip
+          tools: composer
+
+      - name: Verify PHP version
+        run: php -v
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Generate plugin zip
+        run: npm run plugin-zip
+
+      - name: Get plugin version
+        id: get_version
+        run: |
+          VERSION=$(grep "Version:" lifecoachhub.php | awk '{print $2}' | tr -d ' ')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Plugin version: $VERSION"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Life Coach Hub v${{ steps.get_version.outputs.version }} (QA Ready)
+          body: |
+            🚀 **Life Coach Hub Plugin - QA Ready Release**
+
+            This release contains the Life Coach Hub WordPress plugin ready for QA testing.
+
+            ## 📦 Installation
+            1. Download the `lifecoachhub.zip` file
+            2. Upload to your WordPress site via Plugins → Add New → Upload Plugin
+            3. Activate the plugin
+            4. Go to Life Coach Hub in your admin menu to configure
+
+            ## 🔧 Requirements
+            - WordPress 6.7+
+            - PHP 7.4+
+
+            ## 📋 What's Included
+            - Complete plugin with all dependencies
+            - Built assets and blocks
+            - Production-ready code
+
+            ---
+
+            **Note:** This is a QA release. Please test thoroughly before deploying to production.
+          draft: false
+          prerelease: true
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./lifecoachhub.zip
+          asset_name: lifecoachhub.zip
+          asset_content_type: application/zip
+
+      - name: Upload checksums
+        run: |
+          sha256sum lifecoachhub.zip > lifecoachhub.zip.sha256
+
+      - name: Upload checksum file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./lifecoachhub.zip.sha256
+          asset_name: lifecoachhub.zip.sha256
+          asset_content_type: text/plain

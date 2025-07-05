@@ -1,0 +1,50 @@
+name: QA Build
+
+on:
+  pull_request:
+    types: [ labeled ]
+  pull_request_review:
+      types: [submitted]
+
+jobs:
+  build:
+    if: github.event.label.name == 'qa_ready' || github.event.review.state == 'APPROVED'
+    name: "Build Zip For QA"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          extensions: mbstring, intl, zip
+          tools: composer
+
+      - name: Verify PHP version
+        run: php -v
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Generate plugin zip
+        run: npm run plugin-zip
+
+      - name: Upload Zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifecoachhub
+          path: lifecoachhub.zip
