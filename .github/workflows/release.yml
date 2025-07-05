@@ -39,35 +39,7 @@ jobs:
 
       - name: Generate plugin zip
         run: |
-          # Create a clean directory structure
-          mkdir -p temp-build
-          
-          # Copy all files except excluded ones directly to temp-build
-          rsync -av \
-            --exclude='temp-build' \
-            --exclude='temp-plugin' \
-            --exclude='node_modules' \
-            --exclude='src' \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            --exclude='.editorconfig' \
-            --exclude='composer.lock' \
-            --exclude='package-lock.json' \
-            --exclude='*.zip' \
-            --exclude='README.md' \
-            --exclude='phpcs.xml' \
-            --exclude='webpack.config.js' \
-            --exclude='package.json' \
-            ./ temp-build/
-          
-          # Create the zip from temp-build contents
-          cd temp-build
-          zip -r ../lifecoachhub.zip .
-          cd ..
-          
-          # Clean up
-          rm -rf temp-build
+          npm run plugin-zip
           
           # Verify zip contents
           echo "Zip contents:"

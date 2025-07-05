@@ -42,31 +42,31 @@ jobs:
 
       - name: Generate plugin zip
         run: |
-          # Create a clean directory structure
-          mkdir -p temp-build
+          npm run plugin-zip
           
-          # Copy all files except excluded ones directly to temp-build
-          rsync -av \
-            --exclude='temp-build' \
-            --exclude='temp-plugin' \
-            --exclude='node_modules' \
-            --exclude='src' \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            --exclude='.editorconfig' \
-            --exclude='composer.lock' \
-            --exclude='package-lock.json' \
-            --exclude='*.zip' \
-            --exclude='README.md' \
-            --exclude='phpcs.xml' \
-            --exclude='webpack.config.js' \
-            --exclude='package.json' \
-            ./ temp-build/
+          # Verify zip contents
+          echo "Zip contents:"
+          unzip -l lifecoachhub.zip | head -20
+
+      - name: Upload Zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifecoachhub
+          path: lifecoachhub.zip
+            -x "README.md" \
+            -x "phpcs.xml" \
+            -x "webpack.config.js" \
+            -x "package.json"
           
-          # Create the zip from temp-build contents
-          cd temp-build
-          zip -r ../lifecoachhub.zip .
+          # Verify zip contents
+          echo "Zip contents:"
+          unzip -l lifecoachhub.zip | head -20
+
+      - name: Upload Zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifecoachhub
+          path: lifecoachhub.zip
           cd ..
           
           # Clean up
