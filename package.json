@@ -6,12 +6,12 @@
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"files": [
-		"build",
-		"assets",
-		"includes",
+		"build/**",
+		"assets/**",
+		"includes/**",
+		"vendor/**",
 		"lifecoachhub.php",
-		"readme.txt",
-		"vendor"
+		"readme.txt"
 	],
 	"scripts": {
 		"build": "wp-scripts build --blocks-manifest",
@@ -19,10 +19,12 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
+		"plugin-zip": "node .dev/release.js",
 		"start": "wp-scripts start --blocks-manifest"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^30.17.0"
+		"@wordpress/scripts": "^30.17.0",
+		"adm-zip": "^0.5.14",
+		"fast-glob": "^3.3.2"
 	}
 }

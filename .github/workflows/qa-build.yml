@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    if: github.event.label.name == 'qa_ready' || github.event.review.state == 'APPROVED'
+    if: github.event.label.name == 'QA Ready' || github.event.review.state == 'APPROVED'
     name: "Build Zip For QA"
     runs-on: ubuntu-latest
     steps:

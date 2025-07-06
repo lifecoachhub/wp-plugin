@@ -79,7 +79,7 @@ if ( ! $is_connected ) {
                                     <?php esc_html_e( 'Disconnected', 'lifecoachhub' ); ?>
                                 </span>
                                 <p class="description">
-                                    <?php esc_html_e( 'Please enter your API key to connect with Life Coach Hub or use the Connect button below.', 'lifecoachhub' ); ?>
+                                    <?php esc_html_e( 'Please click the Connect button below to connect with Life Coach Hub. In a new window, it will open Life Coach Hub portal to connect. Once connected, you will be able to manage your coaching business directly from your WordPress dashboard.', 'lifecoachhub' ); ?>
                                 </p>
                                 <p>
                                     <a href="<?php echo esc_url( $app_url ); ?>" class="button button-primary button-hero" style="background: #0073aa !important; color: #ffffff;">
@@ -97,12 +97,16 @@ if ( ! $is_connected ) {
                         </th>
                         <td>
                             <p style="display: flex; gap: 10px;">
+                                <?php if ( $is_connected ) : ?>
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=lifecoachhub' ) ); ?>" class="button button-primary">
                                     <?php esc_html_e( 'Go to Life Coach Hub Dashboard', 'lifecoachhub' ); ?>
+                                    <span class="dashicons dashicons-dashboard"></span>
                                 </a>
+                                <?php endif; ?>
 
                                 <a href="<?php echo esc_url( LIFECOACHHUB_APP_URL ); ?>" class="button button-secondary" target="_blank">
                                     <?php esc_html_e( 'Visit Life Coach Hub Website', 'lifecoachhub' ); ?>
+                                    <span class="dashicons dashicons-external"></span>
                                 </a>
                             </p>
                         </td>
