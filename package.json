@@ -10,6 +10,7 @@
 		"assets/**",
 		"includes/**",
 		"vendor/**",
+		"composer.json",
 		"lifecoachhub.php",
 		"readme.txt"
 	],

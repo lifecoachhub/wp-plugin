@@ -57,6 +57,7 @@ if (hasPackageProp('files')) {
 			'block.json',
 			'changelog.*',
 			'license.*',
+            'composer.json',
 			'readme.*',
 		],
 		{
