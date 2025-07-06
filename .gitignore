@@ -16,6 +16,9 @@ build/Release
 # Dependency directories
 node_modules/
 
+# For zip generated files.
+lifecoachhub/
+
 # Optional npm cache directory
 .npm
 
