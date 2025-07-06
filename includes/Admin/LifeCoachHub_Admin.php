@@ -327,7 +327,7 @@ class LifeCoachHub_Admin
 			return;
 		}
 
-		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-admin-page.php';
+		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/Admin/views/html-admin-page.php';
 	}
 
 	/**
@@ -344,7 +344,7 @@ class LifeCoachHub_Admin
 		$this->handle_settings_form();
 
 		// Load settings page template
-		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/admin/views/html-settings-page.php';
+		include_once LIFECOACHHUB_PLUGIN_DIR . 'includes/Admin/views/html-settings-page.php';
 	}
 
 	/**

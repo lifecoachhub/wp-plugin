@@ -38,12 +38,7 @@ jobs:
         run: npm run build
 
       - name: Generate plugin zip
-        run: |
-          npm run plugin-zip
-          
-          # Verify zip contents
-          echo "Zip contents:"
-          unzip -l lifecoachhub.zip | head -20
+        run: npm run plugin-zip
 
       - name: Get plugin version
         id: get_version

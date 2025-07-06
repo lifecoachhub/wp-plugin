@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    if: github.event.label.name == 'qa_ready' || github.event.review.state == 'APPROVED'
+    if: github.event.label.name == 'QA Ready' || github.event.review.state == 'APPROVED'
     name: "Build Zip For QA"
     runs-on: ubuntu-latest
     steps:
@@ -41,40 +41,7 @@ jobs:
         run: npm run build
 
       - name: Generate plugin zip
-        run: |
-          npm run plugin-zip
-          
-          # Verify zip contents
-          echo "Zip contents:"
-          unzip -l lifecoachhub.zip | head -20
-
-      - name: Upload Zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: lifecoachhub
-          path: lifecoachhub.zip
-            -x "README.md" \
-            -x "phpcs.xml" \
-            -x "webpack.config.js" \
-            -x "package.json"
-          
-          # Verify zip contents
-          echo "Zip contents:"
-          unzip -l lifecoachhub.zip | head -20
-
-      - name: Upload Zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: lifecoachhub
-          path: lifecoachhub.zip
-          cd ..
-          
-          # Clean up
-          rm -rf temp-build
-          
-          # Verify zip contents
-          echo "Zip contents:"
-          unzip -l lifecoachhub.zip | head -20
+        run: npm run plugin-zip
 
       - name: Upload Zip
         uses: actions/upload-artifact@v4
