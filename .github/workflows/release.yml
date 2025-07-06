@@ -38,7 +38,7 @@ jobs:
         run: npm run build
 
       - name: Generate plugin zip
-        run: npm run plugin-zip
+        run: npm run plugin-zip --no-root-folder
 
       - name: Get plugin version
         id: get_version
