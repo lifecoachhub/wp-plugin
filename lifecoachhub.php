@@ -31,7 +31,9 @@ define( 'LIFECOACHHUB_PROD_URL', 'https://app.lifecoachhub.com' );
 // Define current app URL - switch between development and production
 // For development, use LIFECOACHHUB_DEV_URL
 // For production, use LIFECOACHHUB_PROD_URL
-define( 'LIFECOACHHUB_APP_URL', LIFECOACHHUB_PROD_URL ); // LIFECOACHHUB_PROD_URL or LIFECOACHHUB_DEV_URL
+if ( ! defined( 'LIFECOACHHUB_APP_URL' ) ) {
+    define( 'LIFECOACHHUB_APP_URL', LIFECOACHHUB_PROD_URL ); // LIFECOACHHUB_PROD_URL or LIFECOACHHUB_DEV_URL
+}
 
 /**
  * Get the Life Coach Hub app URL
