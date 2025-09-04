@@ -200,12 +200,17 @@ class LifeCoachHub_Admin
 	 */
 	public function admin_scripts($hook)
 	{
-		// Load on both main plugin page and settings page
-		// die( 'Admin scripts loaded on hook: ' . $hook ); // Debugging line
+		// Load on both main plugin page and settings page.
 		if ('toplevel_page_lifecoachhub' !== $hook && 'life-coach-hub_page_lifecoachhub-settings' !== $hook) {
 			return;
 		}
 
+		// Get connection status and API key.
+		$api_key = get_option('lifecoachhub_api_key');
+		$connection_status = get_option('lifecoachhub_connection_status');
+		$is_connected = $api_key && 'success' === $connection_status;
+
+		// Enqueue admin styles
 		wp_enqueue_style(
 			'lifecoachhub-admin',
 			LIFECOACHHUB_PLUGIN_URL . 'assets/css/admin.css',
@@ -213,6 +218,24 @@ class LifeCoachHub_Admin
 			'1.0.0'
 		);
 
+		// Enqueue admin page specific styles.
+		if ('toplevel_page_lifecoachhub' === $hook) {
+			// Add body class for conditional styling when not connected.
+			if (!$is_connected) {
+				add_filter('admin_body_class', function($classes) {
+					return $classes . ' lifecoachhub-admin-not-connected';
+				});
+
+				wp_enqueue_style(
+					'lifecoachhub-admin-page',
+					LIFECOACHHUB_PLUGIN_URL . 'assets/css/admin-not-connected.css',
+					array(),
+					'1.0.0'
+				);
+			}
+		}
+
+		// Enqueue general admin script.
 		wp_enqueue_script(
 			'lifecoachhub-admin-js',
 			LIFECOACHHUB_PLUGIN_URL . 'assets/js/admin.js',
@@ -221,11 +244,33 @@ class LifeCoachHub_Admin
 			true
 		);
 
-		// Get stored API key
-		$api_key = get_option('lifecoachhub_api_key');
+		// Only enqueue iframe script if connected and on main page.
+		if ($is_connected && 'toplevel_page_lifecoachhub' === $hook) {
+			wp_enqueue_script(
+				'lifecoachhub-admin-iframe',
+				LIFECOACHHUB_PLUGIN_URL . 'assets/js/admin-iframe.js',
+				array(),
+				'1.0.0',
+				true
+			);
+
+			// Pass configuration data to iframe script.
+			wp_localize_script(
+				'lifecoachhub-admin-iframe',
+				'lifecoachHubConfig',
+				array(
+					'baseUrl' => LIFECOACHHUB_APP_URL,
+					'apiKey' => $api_key,
+					'adminPageUrl' => admin_url('admin.php?page=lifecoachhub'),
+					'connectorScriptUrl' => LIFECOACHHUB_PLUGIN_URL . 'assets/js/external-connector.js'
+				)
+			);
+		}
+
+		// Get stored API key for general admin script.
 		$app_url = $this->app_url . '/launchpad';
 
-		// Add API key and source parameter to app URL if available
+		// Add API key and source parameter to app URL if available.
 		if ($api_key) {
 			$app_url = add_query_arg(array(
 				'api_key' => $api_key,
@@ -234,6 +279,7 @@ class LifeCoachHub_Admin
 			), $app_url);
 		}
 
+		// Localize general admin script.
 		wp_localize_script(
 			'lifecoachhub-admin-js',
 			'lifecoachhubData',
